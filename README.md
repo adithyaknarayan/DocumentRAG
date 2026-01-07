@@ -4,11 +4,9 @@
 
 Also for fun, I was recently looking into DIP (Dependency Inversion Principle), so I wanted to use this take-home as a sort of test bench to see how well that would work for this project. Overall, from what I understand we need a pipeline that looks like
 ```
-interfaces  ← domain
-     ↑          ↑
-application
-     ↑
-infrastructure
+interfaces (Abstract classes)  ← domain (embedding, chunking, DB)
+     ↑                             ↑
+application (ingestion, retrieval, generation)
      ↑
 wiring / main
 ```

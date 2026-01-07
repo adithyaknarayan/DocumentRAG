@@ -29,3 +29,19 @@ class DocumentChunker(ABC):
             The chunks as a list of dicts.
         """
         pass
+
+class Embedder(ABC):
+    """Abstract interface for text embedding models."""
+    
+    @abstractmethod
+    def embed_batch(self, texts: List[str]) -> np.ndarray:
+        """
+        Generate embeddings for multiple texts by running over eaach text.
+        
+        Args:
+            texts: List of texts to embed
+            
+        Returns:
+            2D numpy array of embeddings (one per text).
+        """
+        pass
