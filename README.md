@@ -14,3 +14,16 @@ wiring / main
 Here `application only depends on interfaces and domain, infra on application etc. Following this I'll try to build out the whole pipeline and hopefully have a clean ablation on the chunking/retreival stategy later down the line.
 
 # Data Setup 
+
+# Application Layer
+## Ingestion
+So for the first part, I'm thinking that we generate a pipeline that ingests all the given documents, chunks it and generates embeddings and stores it in a vectorDB. So the dependency would flow like
+```
+Ingestion -> {domain.chunk, domain.embed, domain.vector_db} -> {abstractions on each (stored in interfaces)}
+```
+
+Since this is a high level module, with DIP, I'll be putting this in applications as a service that orchestrates those components together.
+
+## Retreival 
+
+## Generation
