@@ -29,3 +29,47 @@ class DocumentChunker(ABC):
             The chunks as a list of dicts.
         """
         pass
+
+class Embedder(ABC):
+    """Abstract interface for text embedding models."""
+    
+    @abstractmethod
+    def embed_batch(self, texts: List[str]) -> np.ndarray:
+        """
+        Generate embeddings for multiple texts by running over eaach text.
+        
+        Inputs:
+            texts: List of texts to embed
+            
+        Returns:
+            2D numpy array of embeddings (one per text).
+        """
+        pass
+
+class VectorStore(ABC):
+    """Abstract interface for vector storage and similarity search.
+    The original idea was that I leave the doors open for me to test other
+    vectir databases.
+    """
+    
+    @abstractmethod
+    def add_vectors(
+        self,
+        vectors: np.ndarray,
+        metadata: List[Dict[str, Any]],
+        ids: Optional[List[str]] = None
+    ) -> None:
+        """
+        Add vectors to the store with associated metadata.
+        
+        Inputs:
+            vectors: 2D array of vectors to add
+            metadata: List of metadata dicts (one per vector)
+            ids: Optional list of unique IDs for vectors
+        """
+        pass
+    
+    @abstractmethod
+    def save(self, path: str) -> None:
+        """Save things to disk."""
+        pass

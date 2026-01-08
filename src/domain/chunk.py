@@ -16,30 +16,30 @@ class SentenceChunker(DocumentChunker):
     def chunk_text(
         self,
         text: str,
-        metadata: Optional[Dict[str, Any]] = None
         ) -> List[Dict[str, Any]]:
+
         sentences = self.split_sentences(text)
-        if not metadata:
-            metadata = {}
         
         chunks = []
         chunk_idx = 0
-        
+
+        # for each sentence chunk that we get from the spacy model
+        # generate metadata+text.
         for i in range(0, len(sentences), self.sens_per_chunk):
             chunk_sentences = sentences[i:i + self.sens_per_chunk]
             chunk_text = ' '.join(chunk_sentences)
             
             if chunk_text.strip():
                 chunk_metadata = {
-                    **metadata,
                     'chunk_index': chunk_idx,
                     'sentence_start': i,
                     'sentence_end': i + len(chunk_sentences),
-                    'num_sentences': len(chunk_sentences)
+                    'num_sentences': len(chunk_sentences),
+                    'text': chunk_text.strip()
                 }
                 
                 chunks.append({
-                    'text': chunk_text.strip(),
+                    'text': chunk_text.strip(), # TODO: this is repeated in the metdata (clean)
                     'metadata': chunk_metadata
                 })
                 
