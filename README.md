@@ -20,6 +20,12 @@ Here `application` only depends on interfaces and domain. Following this I'll tr
 ## Quick Start
 
 ```bash
+# create env
+conda create -n env python=3.10
+
+# move data to correct loc
+mv Farmers_Bulletin dataset/Farmers_Bulletin
+
 # Install dependencies
 pip install -r requirements.txt
 
@@ -39,8 +45,8 @@ Abstract classes defining contracts for the system. Everything depends on these 
 
 ### Domain Layer
 Core implementations:
-- **Chunking** (`chunk.py`): Sentence-based chunking using spaCy
-- **Embedding** (`embed.py`): Sentence transformers for text embeddings
+- **Chunking** (`chunk.py`): Sentence-based chunking using spaCy. Here every chunk is n sentences (controlled by `sens_per_chunk`).
+- **Embedding** (`embed.py`): Sentence transformers for text embeddings. This generates a (1,384) length embedding for each chunk.
 - **Vector DB** (`faiss_vdb.py`): FAISS for similarity search. For convenience I'm sticking to FAISS, but still follow DIP with an abstraction layer on top
 - **Generation** (`generate.py`): HuggingFace models for response generation
 
@@ -84,3 +90,53 @@ test_chunker.py -> test_embedder.py -> test_ingest.py -> test_retreival.py -> te
 ```
 
 This essentially outlines every step taken on the way to making the whole repository and how I broke down the components.
+
+## Example Output
+```
+Question: why are wide walls better
+[adi]: 
+### Instruction:
+Answer the following question based on the provided context. Be concise and accurate.
+
+### Context:
+[1] Nearly all models will pags through a 16-foot gate.
+
+[2] For smaller acreages other methods will usually be more economical.
+
+[3] The machines can turn a square corner within the space of previous swath.
+
+### Question:
+why are wide walls better
+
+### Response:
+
+Answer: The wider walls are better because they can turn a 16-foot gate within the space of a previous swath. This means that the machines can do more work in less time. Additionally, wide walls allow for more vertical reach and can better handle larger animals, such as horses and cattle. Therefore, wide walls are preferable for larger acreages or for animals that require more space to move.
+```
+
+```
+### Question:
+why are wide walls better
+
+### Response:
+
+Answer: The wider walls are better because they can turn a 16-foot gate within the space of a previous swath. This means that the machines can do more work in less time. Additionally, wide walls allow for more vertical reach and can better handle larger animals, such as horses and cattle. Therefore, wide walls are preferable for larger acreages or for animals that require more space to move.
+
+Question: What happened in 1972?
+[adi]: 
+### Instruction:
+Answer the following question based on the provided context. Be concise and accurate.
+
+### Context:
+[1] The first combine was built over 50 years ago.
+
+[2] Har.
+
+[3] Such delay may also arise where grain is harvested with a binder, as in Illinois in 1926, where much of the small grain was lost or not threshed until the spring of 1927, because of excessive rains, but combine operators were able to complete their harvest before the rainy weather set in, thus saving their entire crop.
+
+### Question:
+What happened in 1972?
+
+### Response:
+
+Answer: In 1972, the combine was built over 50 years ago, and there was a delay in harvesting.
+```
