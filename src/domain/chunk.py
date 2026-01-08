@@ -16,11 +16,9 @@ class SentenceChunker(DocumentChunker):
     def chunk_text(
         self,
         text: str,
-        metadata: Optional[Dict[str, Any]] = None
         ) -> List[Dict[str, Any]]:
+
         sentences = self.split_sentences(text)
-        if not metadata:
-            metadata = {}
         
         chunks = []
         chunk_idx = 0
@@ -31,11 +29,11 @@ class SentenceChunker(DocumentChunker):
             
             if chunk_text.strip():
                 chunk_metadata = {
-                    **metadata,
                     'chunk_index': chunk_idx,
                     'sentence_start': i,
                     'sentence_end': i + len(chunk_sentences),
-                    'num_sentences': len(chunk_sentences)
+                    'num_sentences': len(chunk_sentences),
+                    'text': chunk_text.strip()
                 }
                 
                 chunks.append({

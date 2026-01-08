@@ -13,7 +13,10 @@ wiring / main
 
 Here `application only depends on interfaces and domain, infra on application etc. Following this I'll try to build out the whole pipeline and hopefully have a clean ablation on the chunking/retreival stategy later down the line.
 
-# Data Setup 
+# Domain Layer
+## Vector DB
+Now that the embedder and the chunking components have been build out, I'll work on the database component. For convenience I'll be sticking ot FAISS, but will still follow the DIP design principle and do a abstraction layer on top.
+
 
 # Application Layer
 ## Ingestion

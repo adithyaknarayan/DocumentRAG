@@ -1,5 +1,3 @@
-"""Sentence-Transformers implementation of Embedder interface."""
-
 from typing import List
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -29,6 +27,26 @@ class SentenceTransformerEmbedder(Embedder):
         self.model = SentenceTransformer(model_name, device=device)
         self.embed_dim= self.model.get_sentence_embedding_dimension()
     
+    def embed_text(self, text: str) -> np.ndarray:
+        """
+        Generate embedding for a single text. This is
+        mainly for the query processing.
+        
+        Args:
+            text: Input text to embed
+            
+        Returns:
+            Embedding vector as numpy array
+        """
+        
+        embedding = self.model.encode(
+            text,
+            convert_to_numpy=True,
+            normalize_embeddings=True
+        )
+        embedding = np.expand_dims(embedding, axis=0)
+        return embedding
+
     def embed_batch(self, texts: List[str]) -> np.ndarray:
         """
         Generate embeddings for multiple texts efficiently.
