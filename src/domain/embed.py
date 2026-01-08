@@ -30,7 +30,8 @@ class SentenceTransformerEmbedder(Embedder):
     def embed_text(self, text: str) -> np.ndarray:
         """
         Generate embedding for a single text. This is
-        mainly for the query processing.
+        mainly for the query processing. Use embed_batch
+        for data ingestion.
         
         Args:
             text: Input text to embed

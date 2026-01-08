@@ -17,12 +17,13 @@ class FAISSVectorStore(VectorStore):
         Initialize FAISS vector store. From a brief look online Flat 
         works well for small datasets. 
         """
-        self.dimension = dimension
+        self.dimension = dimension # TODO: This is hardcoded on call should ideally depend on embedding model
         self.index_type = index_type
         self.metadata_store: List[Dict[str, Any]] = []
         self.id_store: List[str] = []
         
         if index_type == 'flat':
+            # Mainly stuck with this since a quick google search revealed that this work better
             self.index = faiss.IndexFlatL2(dimension)
         else:
             raise NotImplementedError(f"The DB only supports flat at the moment: {index_type}")
