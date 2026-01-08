@@ -29,7 +29,6 @@ class IngestionSevice:
         # Split into text and metadata
         texts = [chunk['text'] for chunk in chunks]
         metadatas = [chunk['metadata'] for chunk in chunks]
-        print(metadatas)
         embeds = self.embedder.embed_batch(texts)
         
         # Generate chunk_ids

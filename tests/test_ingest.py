@@ -12,7 +12,7 @@ vdb = FAISSVectorStore(384)
 ingestor = IngestionSevice(chunker=chunker, embeder=embedder, vector_db=vdb)
 
 # run
-ingestor.process_dir(base_path, 1)
+ingestor.process_dir(base_path)
 
 query = "Why is it easier to build wide gates?"
 query_embedding = embedder.embed_text(query)
