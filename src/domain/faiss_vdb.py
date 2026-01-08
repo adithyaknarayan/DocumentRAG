@@ -43,7 +43,9 @@ class FAISSVectorStore(VectorStore):
             ids: Optional list of unique IDs for vectors
         """
         
-        # We neec continuous id so add to existing ids
+        # We neec continuous ids so that every embed has
+        # a unique id mapping. FAISS interally has it's own
+        # indexing though.
         numeric_ids = np.arange(len(self.id_store), len(self.id_store) + len(vectors))
         
         # Add to FAISS index

@@ -73,3 +73,49 @@ class VectorStore(ABC):
     def save(self, path: str) -> None:
         """Save things to disk."""
         pass
+    
+    @abstractmethod
+    def load(self, path:str) -> None:
+        """Load vector store from disk."""
+        pass
+
+    @abstractmethod
+    def search(self, query:np.ndarray, k:int):
+        """
+        Search for vecros in the index and return the relevant metadata
+        Inputs:
+            query: the query embedding that we want to search against
+            k: the top k that similar entries in the db that we want
+
+        Returns:
+            List of metadata entries returned from the indices with min
+            distance to the query.
+        """
+
+class LLMGenerator(ABC):
+    """Abstract interface for LLM-based text generation. Ideally I want to be able to try and
+    compare interfacing with Huggingface/other API based models but beuilding this out for
+    completeness more than anything.
+    """
+    
+    @abstractmethod
+    def generate(
+        self,
+        prompt: str,
+        max_tokens: Optional[int] = None,
+        temperature: float = 0.7,
+        **kwargs
+    ) -> str:
+        """
+        Generate text from a prompt.
+        
+        Args:
+            prompt: Input prompt for generation
+            max_tokens: Maximum tokens to generate
+            temperature: Sampling temperature
+            **kwargs: Additional model-specific parameters
+            
+        Returns:
+            Generated text
+        """
+        pass
