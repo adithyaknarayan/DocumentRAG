@@ -91,3 +91,31 @@ class VectorStore(ABC):
             List of metadata entries returned from the indices with min
             distance to the query.
         """
+
+class LLMGenerator(ABC):
+    """Abstract interface for LLM-based text generation. Ideally I want to be able to try and
+    compare interfacing with Huggingface/other API based models but beuilding this out for
+    completeness more than anything.
+    """
+    
+    @abstractmethod
+    def generate(
+        self,
+        prompt: str,
+        max_tokens: Optional[int] = None,
+        temperature: float = 0.7,
+        **kwargs
+    ) -> str:
+        """
+        Generate text from a prompt.
+        
+        Args:
+            prompt: Input prompt for generation
+            max_tokens: Maximum tokens to generate
+            temperature: Sampling temperature
+            **kwargs: Additional model-specific parameters
+            
+        Returns:
+            Generated text
+        """
+        pass

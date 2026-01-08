@@ -16,8 +16,10 @@ class SentenceTransformerEmbedder(Embedder):
         device: str = 'cpu'
     ):
         """
-        Initialize embedder with a specific model.
-        
+        Initialize embedder with a specific model. We're gonna go with the MiniLM model
+        looking at the Speed vs Model Size tradeoff shown in the table here:
+        https://www.sbert.net/docs/sentence_transformer/pretrained_models.html
+
         Args:
             model_name: Hugging Face model identifier
             device: gpu_id to run on
@@ -50,7 +52,7 @@ class SentenceTransformerEmbedder(Embedder):
 
     def embed_batch(self, texts: List[str]) -> np.ndarray:
         """
-        Generate embeddings for multiple texts efficiently.
+        Generate embeddings for multiple texts by looping through it (not efficient).
         
         Args:
             texts: List of texts to embed
