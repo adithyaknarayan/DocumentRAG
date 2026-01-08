@@ -73,3 +73,21 @@ class VectorStore(ABC):
     def save(self, path: str) -> None:
         """Save things to disk."""
         pass
+    
+    @abstractmethod
+    def load(self, path:str) -> None:
+        """Load vector store from disk."""
+        pass
+
+    @abstractmethod
+    def search(self, query:np.ndarray, k:int):
+        """
+        Search for vecros in the index and return the relevant metadata
+        Inputs:
+            query: the query embedding that we want to search against
+            k: the top k that similar entries in the db that we want
+
+        Returns:
+            List of metadata entries returned from the indices with min
+            distance to the query.
+        """
