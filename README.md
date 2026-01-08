@@ -13,10 +13,13 @@ application (ingestion, retrieval, generation)
 wiring / main
 ```
 So more concrete diagram can be seen as,
-![Architecture Layers](assets/Layers.png)
+![Architecture Layers](assets/image2.png)
 
 Here `application` only depends on interfaces and domain. Following this I'll try to build out the whole pipeline and hopefully have a clean ablation on the chunking/retrieval strategy later down the line.
 
+
+Overall the architecture was similar to the one in the doc (I did not end up getting time to ablate chunking strategies but it should be simple to implement additional ones in `domain/chunk.py`),
+![Architecture Layers](assets/image(2).png)
 ## Quick Start
 
 ```bash
